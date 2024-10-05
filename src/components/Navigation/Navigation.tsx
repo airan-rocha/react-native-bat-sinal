@@ -1,7 +1,7 @@
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { Button,Text, Image, View } from 'react-native';
+import { Text, Image, View } from 'react-native';
 import { Home } from '../../screens/Home/Home';
 import { PedirAjuda } from '../../screens/PedirAjuda/PedirAjuda';
 import batmamLogo from '../../../assets/batman-logo.png';
@@ -28,17 +28,33 @@ function BatmanHeader() {
 
 export function Navigation() {
 
+  const MyTheme= {
+    dark: false,
+    colors: {
+      primary: 'rgb(10, 132, 255)',
+      background: 'rgb(1, 1, 1)',
+      card: '#000000',
+      text: 'rgb(229, 229, 231)',
+      border: 'rgb(39, 39, 41)',
+      notification: 'rgb(255, 69, 58)',
+    },
+  };
+
   return (
-    <NavigationContainer theme={DarkTheme}>
-        <Stack.Navigator>
+    <NavigationContainer theme={MyTheme}>
+        <Stack.Navigator screenOptions={{
+            statusBarStyle: 'light',
+            statusBarColor: '#000000',
+            navigationBarColor: '#eac871',
+            // headerTransparent: true,
+          }}>
           <Stack.Screen
             name='Home'
             component={Home}
             options={{
-              statusBarStyle: 'light',
-              statusBarColor: 'rgb(18, 18, 18)',
-              navigationBarColor: '#eac871',
-              headerTitle: () => <BatmanHeader/>
+              headerTitle: () => <BatmanHeader/>,
+              // navigationBarHidden: true,
+              navigationBarColor: '#000000',
             }}
           />
           <Stack.Screen 
@@ -46,9 +62,6 @@ export function Navigation() {
             component={PedirAjuda} 
             options={{
               title:'Formulário de Socorro',
-              statusBarStyle: 'light',
-              statusBarColor: 'rgb(18, 18, 18)',
-              navigationBarColor: '#eac871',
             }}
           />
         </Stack.Navigator>

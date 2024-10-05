@@ -4,6 +4,9 @@ export const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#eac871',
+    },
+    imgBackground: {
+      flex: 1,
       alignItems: 'center',
       justifyContent: 'space-around',
     },

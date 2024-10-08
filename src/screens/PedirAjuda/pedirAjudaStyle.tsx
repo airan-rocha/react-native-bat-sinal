@@ -29,5 +29,10 @@ export const styles = StyleSheet.create({
       marginTop: 25,
       padding: 20,
       borderRadius: 10,
+    },
+    map: {
+      alignSelf:'center',
+      width: '90%',
+      height: 200,
     }
   });

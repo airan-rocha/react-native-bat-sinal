@@ -4,6 +4,8 @@ import { styles } from './pedirAjudaStyle';
 import * as Location from 'expo-location';
 import MapView from 'react-native-maps';
 
+let idIntervalColor: any;
+
 export function PedirAjuda({navigation}) {
   const [name, onChangeName] = useState('');
   const [phone, onChangePhone] = useState('');
@@ -41,43 +43,35 @@ export function PedirAjuda({navigation}) {
   const [displayActive, setDisplayActive] = useState(true);
   const [displayBgColorSinal, setDisplayBgColorSinal] = useState('red');
 
-  let countOffInterval = 21;
   let count = 0;
-  let intervalColor;
-  let alterColor = true;
-
 
   function alterarBgColor() {
-    intervalColor = setInterval(() => {
-      alterColor = !alterColor;
-      setDisplayBgColorSinal(alterColor ? 'yellow' : 'red');
+    idIntervalColor = setInterval(() => {
+      setDisplayBgColorSinal((color) => color == 'red' ? 'yellow' : 'red');
       count++,
-      console.log(`Seconds: ${count} - BatSinal Ativado`)
+      console.log(`Seconds: ${count} - BatSinal Ativado ${idIntervalColor}`)
     }, 1 * 1000);
   }
 
   function AtivarBatSinal(actived: boolean) {
     let one_second = 1000;
-    setDisplayActive(!actived);
+    setDisplayActive((value) => !actived);
 
     if(actived) {
       alterarBgColor();
       Vibration.vibrate(one_second);
     }else {
       Vibration.vibrate(one_second);
-      clearInterval(intervalColor);
-      intervalColor = null,
+      clearInterval(idIntervalColor);
+      clearInterval(1)
+      idIntervalColor = null,
       console.log(`Bat Sinal - desativado`);
     };
-    
-    setTimeout(() => {
-      clearInterval(intervalColor);
-    }, countOffInterval * one_second);
   }
 
   return (
     <View style={styles.container}>
-        <ScrollView style={[styles.formulario , {display: displayActive ? 'flex' : 'none'}]}>
+        <ScrollView style={{display: displayActive ? 'flex' : 'none'}}>
           <Text style={styles.label}>Nome</Text>
           <TextInput 
             style={styles.input}
